@@ -8,7 +8,8 @@ import time
 
 HUMAN = -1
 COMP = +1
-
+nb_node_global = []
+nb_node = 0
 board = [
     [0, 0, 0],
     [0, 0, 0],
@@ -93,6 +94,8 @@ def alpha_beta_pruning(state, depth, alpha, beta, player):
     :param player: an human or a computer
     :return: a list with [the best row, best col, best score]
     """
+    global nb_node
+    nb_node += 1
     if player == COMP:
         best = [-1, -1, -infinity]
     else:
@@ -410,6 +413,7 @@ class Ui_TicTacToe(object):
         :param h_choice: human's choice X or O
         :return:
         """
+        global nb_node
         depth = len(empty_cells(board))
         if depth == 0 or game_over(board):
             return
@@ -422,7 +426,8 @@ class Ui_TicTacToe(object):
             move = alpha_beta_pruning(board, depth, -infinity, infinity, True)
             end = time.time()
             evaluation = end - start
-            print('Evaluation time: {}s'.format(round(evaluation, 7)))
+            print('Evaluation time: {}s'.format(round(end - start, 7)))
+            print('Number of nodes evaluated in this turn : ' ,nb_node)
             print('Depth : ' ,depth)
             x, y = move[0], move[1]
 

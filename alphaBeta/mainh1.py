@@ -8,7 +8,6 @@ import time
 
 HUMAN = -1
 COMP = +1
-
 board = [
     [0, 0, 0],
     [0, 0, 0],
